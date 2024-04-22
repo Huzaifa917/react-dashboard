@@ -2,6 +2,7 @@ import React from "react";
 import styled, { keyframes } from "styled-components";
 import { Link } from "react-router-dom";
 
+
 const bounceAnimation = keyframes`
   /* Animation code here... */
 `;
@@ -88,6 +89,7 @@ const FrontPage = () => {
           Next <ArrowIcon>→</ArrowIcon>
         </NextButton>
       </StyledLink>
+
     </FrontPageContainer>
   );
 };

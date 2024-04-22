@@ -5,9 +5,13 @@ import { FaBars, FaTimes } from "react-icons/fa";
 import { Pie } from "react-chartjs-2"; // Import Pie from react-chartjs-2
 import LeafletMap from "./Leaflet";
 import { Chart as ChartJS } from "chart.js/auto";
+import MapButton from "./MapButton";
+import ExternalWebsite from "./External";
+
 
 import { Bar } from "react-chartjs-2";
 import { Chart, CategoryScale } from "chart.js";
+import SimpleMap from "./Map";
 const AppContainer = styled.div`
   font-family: 'Arial', sans-serif;
   color: #fff;
@@ -557,6 +561,10 @@ return (
       <SidebarItem to="/dashboard">Dashboard</SidebarItem>
       <SidebarItem to="/maps">Maps</SidebarItem>   
        <SidebarItem to="/">Logout</SidebarItem>
+    
+
+
+       <MapButton />
 
       {/* Add more menu items as needed */}
     </Sidebar>
@@ -682,20 +690,18 @@ return (
               <ChartWrapper>
                 <ChartColumn>
                   {/* Accumulated Sludge Volume Chart */}
-                  <h2>Accumulated Sludge Volume Chart</h2>
-                <Bar data={barChartData} options={chartOptions} />
-                </ChartColumn>
-                <ChartColumn>
-                  {/* Priority Status Distribution Pie Chart */}
                   <h2>Priority Status Distribution</h2>
                 <Pie data={pieChartData} options={chartOptions} />
+                </ChartColumn>
+                <ChartColumn>
+                   <SimpleMap></SimpleMap>
                 </ChartColumn>
             
               </ChartWrapper>
         
           </TableContainer>
         </FormAndTableContainer>
-    
+       
       </DashboardContainer>
     </ContentContainer>
 
