@@ -8,12 +8,11 @@ import { Chart as ChartJS } from "chart.js/auto";
 import MapButton from "./MapButton";
 import ExternalWebsite from "./External";
 
-
 import { Bar } from "react-chartjs-2";
 import { Chart, CategoryScale } from "chart.js";
 import SimpleMap from "./Map";
 const AppContainer = styled.div`
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
   color: #fff;
   background-color: #fff;
   height: 100vh;
@@ -22,12 +21,10 @@ const AppContainer = styled.div`
   display: flex;
 `;
 
-
-
 const Sidebar = styled.div`
   position: fixed;
   top: 0;
-  left: ${({ isOpen }) => (isOpen ? "0" : "-200px")};
+  left: ${({ isOpen }) => (isOpen ? "0" : "-400px")};
   bottom: 0;
   width: 200px;
   background-color: #004080; /* Updated background color to a darker shade of blue */
@@ -39,7 +36,6 @@ const Sidebar = styled.div`
   transition: left 0.3s ease;
 `;
 
-
 const SidebarItem = styled(Link)`
   color: #fff;
   text-decoration: none;
@@ -50,9 +46,6 @@ const SidebarItem = styled(Link)`
     background-color: #0056b3;
   }
 `;
-
-
-
 
 const MenuBarButton = styled.button`
   position: absolute;
@@ -67,20 +60,17 @@ const MenuBarButton = styled.button`
   cursor: pointer;
 `;
 
-
 const ContentContainer = styled.div`
-  margin-left: 220px;
   padding: 20px;
   color: #000;
+  margin-bottom: 40px;
 `;
-
 
 const DashboardContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   color: #000000;
-  
 `;
 const FormAndChartContainer = styled.div`
   display: flex;
@@ -94,6 +84,7 @@ const TotalCountsContainer = styled.div`
   background-color: #004080; /* Set background color */
   border: 1px solid #004080; /* Set border color */
   border-radius: 8px; /* Add border radius for rounded corners */
+  padding: 10px 30px;
 
   p {
     margin: 5px 0;
@@ -102,28 +93,26 @@ const TotalCountsContainer = styled.div`
   }
 `;
 
-
 const DashboardTitle = styled.h1`
   font-size: 24px;
-  margin-bottom: 20px;
 `;
 const FormContainer = styled.form`
-flex: 1 0 48%; /* Adjust the width as needed */
- 
+  flex: 1 0 48%; /* Adjust the width as needed */
+
   max-width: 400px;
   background-color: #ffffff;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px; /* Add margin at the bottom for separation */
   background-color: #004080;
   display: flex; /* Use flexbox to center the form horizontally */
   flex-direction: column;
   align-items: center; /* Center items horizontally */
+  margin-bottom: 0px;
 `;
 
 const InputField = styled.input`
-  padding: 5px;
+  padding: 7px;
   margin-bottom: 15px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -143,7 +132,7 @@ const SubmitButton = styled.button`
   cursor: pointer;
   border-radius: 5px;
   transition: background-color 0.3s ease; /* Add smooth transition effect */
-  
+
   &:hover {
     background-color: #0056b3; /* Change color on hover */
   }
@@ -154,17 +143,15 @@ const FormAndTableContainer = styled.div`
   flex-wrap: wrap;
   gap: 20px;
   color: #000000;
-  margin-bottom: 20px;
 `;
 const TableContainer = styled.div`
   flex: 1 0 100%;
 `;
 
-
-
 const Table = styled.table`
   width: 100%;
   border-collapse: collapse;
+  overflow-x: auto;
   margin-top: 20px;
   color: #fff; /* Set font color to white */
   background-color: #004080; /* Set background color to #004080 */
@@ -190,32 +177,57 @@ const ChartWrapper = styled.div`
   align-items: center;
   margin-top: 20px;
   height: 400px;
+  gap: 20px;
 `;
 const ChartContainer = styled.div`
-  flex: 1 0 calc(50% - 20px);
-  height: 400px; /* Adjust the height as needed */
+  width: 100%;
+  height: 600px; /* Adjust the height as needed */
+  padding: 20px;
   overflow: auto;
   background-color: transparent;
-  padding: 20px;
   border-radius: 8px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
   background-color: #004080;
+
+  @media (max-width: 1440px) {
+    height: 400px;
+  }
 `;
 
 const ChartColumn = styled.div`
-  width: 48%;
+  width: 100%;
+  height: 600px; /* Adjust the height as needed */
+  overflow: auto;
+  background-color: transparent;
+  padding: 10px;
+  border-radius: 16px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #004080;
+
+  @media (max-width: 1440px) {
+    height: 400px;
+  }
+`;
+
+const MapColumn = styled.div`
+  width: 70%;
   height: 400px; /* Adjust the height as needed */
   overflow: auto;
   background-color: transparent;
-  padding: 20px;
-  border-radius: 8px;
+  padding: 10px;
+  border-radius: 16px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
   background-color: #004080;
+
+  @media (max-width: 1440px) {
+    width: 60%;
+  }
 `;
 const TablePagination = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 20px;
+  padding-bottom: 20px;
 `;
 
 const PaginationButton = styled.button`
@@ -228,6 +240,31 @@ const PaginationButton = styled.button`
   border-radius: 5px;
   margin: 0 5px;
 `;
+
+const ViewButtonsContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+`;
+
+const ViewButton = styled.button`
+  padding: 10px 20px;
+  border: none;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+
+  &.active {
+    background-color: #0056b3;
+  }
+`;
+
 const ITEMS_PER_PAGE = 5;
 const Dashboard = () => {
   const [ownerName, setOwnerName] = useState("");
@@ -237,15 +274,12 @@ const Dashboard = () => {
   const [lastDesludging, setLastDesludging] = useState("");
   const [tableData, setTableData] = useState([]);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [activeView, setActiveView] = useState("table"); // Default to showing the table
 
   const [currentPage, setCurrentPage] = useState(1);
 
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredData, setFilteredData] = useState([]);
-
-  
-
-  
 
   // ... (other calculations and functions)
 
@@ -257,13 +291,17 @@ const Dashboard = () => {
   const totalPages = Math.ceil(tableData.length / ITEMS_PER_PAGE);
 
   const totalUsers = tableData.length; // Total number of users
-  const totalHighPriority = tableData.filter(row => row.Status === "High Priority").length;
-  const totalSlightPriority = tableData.filter(row => row.Status === "Slight Priority").length;
-  const totalLeastPriority = tableData.filter(row => row.Status === "Least Priority").length;
+  const totalHighPriority = tableData.filter(
+    (row) => row.Status === "High Priority"
+  ).length;
+  const totalSlightPriority = tableData.filter(
+    (row) => row.Status === "Slight Priority"
+  ).length;
+  const totalLeastPriority = tableData.filter(
+    (row) => row.Status === "Least Priority"
+  ).length;
 
-
-// Calculate the starting and ending indices for the current page
-
+  // Calculate the starting and ending indices for the current page
 
   const highPriorityCount = tableData.filter(
     (row) => row.Status === "High Priority"
@@ -321,9 +359,7 @@ const Dashboard = () => {
       }","${row.LastDesludging}","${row.WasteWaterFlow}","${
         row.AccumulatedSludgeVolume
       }","${
-        row.UpcomingSludgingDate
-          ? row.UpcomingSludgingDate.toString()
-          : "N/A"
+        row.UpcomingSludgingDate ? row.UpcomingSludgingDate.toString() : "N/A"
       }"\n`;
     });
 
@@ -434,12 +470,12 @@ const Dashboard = () => {
     const res = await fetch("http://localhost:5000/post-data", {
       method: "POST",
       headers: {
-        "Content-type": "application/json"
+        "Content-type": "application/json",
       },
-      body: JSON.stringify(newRow)
-    })
-    const response = await res.json()
-    console.log(response)
+      body: JSON.stringify(newRow),
+    });
+    const response = await res.json();
+    console.log(response);
     // setTableData((prevData) => [...prevData, newRow]);
 
     // Clear form fields after submission
@@ -448,33 +484,32 @@ const Dashboard = () => {
     setPhoneNo("");
     setNumberOfPersons("");
     setLastDesludging("");
-    fetchData()
+    fetchData();
   };
 
   function showDate(upcomingSludgingDate) {
-    const date = new Date(upcomingSludgingDate)
+    const date = new Date(upcomingSludgingDate);
     const options = {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-      timeZoneName: 'short',
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      timeZoneName: "short",
     };
-    return date.toLocaleString('en-US', options);
+    return date.toLocaleString("en-US", options);
   }
 
   const fetchData = async () => {
-    const res = await fetch("http://localhost:5000/get-data")
-    const response = await res.json()
-    setTableData(response.data)
-    console.log("response: ",response)
-  }
+    const res = await fetch("http://localhost:5000/get-data");
+    const response = await res.json();
+    setTableData(response.data);
+    console.log("response: ", response);
+  };
   useEffect(() => {
-    fetchData()
-  }, [])
-  
+    fetchData();
+  }, []);
 
   const handleMenuButtonClick = () => {
     setIsSidebarOpen((prevIsSidebarOpen) => !prevIsSidebarOpen);
@@ -494,7 +529,7 @@ const Dashboard = () => {
       },
     ],
   };
-  
+
   // Options for the chart
   const chartOptions = {
     maintainAspectRatio: false,
@@ -504,7 +539,7 @@ const Dashboard = () => {
         beginAtZero: true,
         title: {
           display: true,
-       
+
           color: "#fff", // Label color
           font: {
             size: 16, // Label font size
@@ -539,8 +574,8 @@ const Dashboard = () => {
     },
     plugins: {
       legend: {
-        display: false, 
-        color: "#fff"
+        display: false,
+        color: "#fff",
         // If you don't want to display legend
       },
     },
@@ -551,47 +586,46 @@ const Dashboard = () => {
     },
     backgroundColor: "white", // Set the background color of the chart
   };
-  
- 
-return (
-  <>
-  
-    <Sidebar isOpen={isSidebarOpen}>
-      {/* Add your sidebar menu items here */}
-      <SidebarItem to="/dashboard">Dashboard</SidebarItem>
-      <SidebarItem to="/maps">Maps</SidebarItem>   
-       <SidebarItem to="/">Logout</SidebarItem>
-    
 
+  return (
+    <>
+      <Sidebar isOpen={isSidebarOpen}>
+        {/* Add your sidebar menu items here */}
+        <SidebarItem to="/dashboard">Dashboard</SidebarItem>
+        <SidebarItem to="/maps">Maps</SidebarItem>
+        <SidebarItem to="/">Logout</SidebarItem>
 
-       <MapButton />
+        <MapButton />
 
-      {/* Add more menu items as needed */}
-    </Sidebar>
-    <MenuBarButton onClick={handleMenuButtonClick}>
-      {isSidebarOpen ? <FaTimes /> : <FaBars />}
-    </MenuBarButton>
+        {/* Add more menu items as needed */}
+      </Sidebar>
+      <MenuBarButton onClick={handleMenuButtonClick}>
+        {isSidebarOpen ? <FaTimes /> : <FaBars />}
+      </MenuBarButton>
 
-    <ContentContainer>
-      <DashboardContainer>
-      <DashboardTitle>Optimizing Faecal Sludge Collection and Resource Recovery through RDF</DashboardTitle>
-   
-      <TotalCountsContainer>
-          <p>Total Users: {totalUsers}</p>
-          <p>Total High Priority: {totalHighPriority}</p>
-          <p>Total Slight Priority: {totalSlightPriority}</p>
-          <p>Total Least Priority: {totalLeastPriority}</p>
-        </TotalCountsContainer>
-      
-        <FormAndTableContainer>
-          <FormContainer>
-            <InputField
-              type="text"
-              placeholder="Owner Name"
-              value={ownerName}
-              onChange={(e) => setOwnerName(e.target.value)}
-            />
- <InputField
+      <ContentContainer>
+        <DashboardContainer>
+          <DashboardTitle>
+            Optimizing Faecal Sludge Collection and Resource Recovery through
+            RDF
+          </DashboardTitle>
+
+          <TotalCountsContainer>
+            <p>Total Users: {totalUsers}</p>
+            <p>Total High Priority: {totalHighPriority}</p>
+            <p>Total Slight Priority: {totalSlightPriority}</p>
+            <p>Total Least Priority: {totalLeastPriority}</p>
+          </TotalCountsContainer>
+
+          <FormAndTableContainer>
+            <FormContainer>
+              <InputField
+                type="text"
+                placeholder="Owner Name"
+                value={ownerName}
+                onChange={(e) => setOwnerName(e.target.value)}
+              />
+              <InputField
                 type="text"
                 placeholder="Address"
                 value={address}
@@ -615,99 +649,95 @@ return (
                 value={lastDesludging}
                 onChange={(e) => setLastDesludging(e.target.value)}
               />
-            {/* ... (other form input fields) */}
-            <SubmitButton onClick={handleSubmit}>Submit</SubmitButton>
-          </FormContainer>
-            <ChartContainer>
-                <h2 style={{ color: '#fff' }}>Accumulated Sludge Volume Chart</h2>
-              <Bar data={barChartData} options={chartOptions} />
-            </ChartContainer>
-          <TableContainer>
-            <Table>
-              <thead>
-                <tr>
-                  {/* Table headers */}
-     <TableHeader>Owner Name</TableHeader>
-                    <TableHeader>Address</TableHeader>
-                    <TableHeader>Phone No.</TableHeader>
-                    <TableHeader>Number of Persons</TableHeader>
-                    <TableHeader>Last Desludging</TableHeader>
-                    <TableHeader>Wastewater Flow</TableHeader>
-                    <TableHeader>Accumulated Sludge Volume</TableHeader>
-                    <TableHeader>Upcoming Sludging Date</TableHeader>
-                    <TableHeader>Status</TableHeader>
-                </tr>
-              </thead>
-              <tbody>
-          {visibleTableData.map((row, index) => (
-            <tr key={index}>
-              {/* Table cells */}
-              <TableCell>{row.OwnerName}</TableCell>
-                    <TableCell>{row.Address}</TableCell>
-                    <TableCell>{row.Contact}</TableCell>
-                    <TableCell>{row.Persons}</TableCell>
-                    <TableCell>{row.LastDesludging}</TableCell>
-                    <TableCell>{row.WasteWaterFlow} liters</TableCell>
-                    <TableCell>{row.AccumulatedSludgeVolume} liters</TableCell>
-                    <TableCell>
-                      {row.UpcomingSludgingDate
-                        ? showDate(row.UpcomingSludgingDate)
-                        : "N/A"}
-                    </TableCell>
-                    <TableCell
-                      className={row.Status ? row.Status.toLowerCase().replace(" ", "-") : ""}
-                    >
-                      {row.Status}
-                    </TableCell>
-            </tr>
-          ))}
-        </tbody>
-            </Table>
-            <TablePagination>
-          {currentPage > 1 && (
-            <PaginationButton onClick={() => setCurrentPage(currentPage - 1)}>
-              Previous
-            </PaginationButton>
-          )}
-          {Array.from({ length: totalPages }).map((_, index) => (
-            <PaginationButton
-              key={index}
-              onClick={() => setCurrentPage(index + 1)}
-              style={{
-                backgroundColor:
-                  currentPage === index + 1 ? "#0056b3" : "#007bff",
-              }}
-            >
-              {index + 1}
-            </PaginationButton>
-          ))}
-          {currentPage < totalPages && (
-            <PaginationButton onClick={() => setCurrentPage(currentPage + 1)}>
-              Next
-            </PaginationButton>
-          )}
-        </TablePagination>
-              <ChartWrapper>
-                <ChartColumn>
-                  {/* Accumulated Sludge Volume Chart */}
-                  <h2>Priority Status Distribution</h2>
-                <Pie data={pieChartData} options={chartOptions} />
-                </ChartColumn>
-                <ChartColumn>
-                   <SimpleMap></SimpleMap>
-                </ChartColumn>
-            
-              </ChartWrapper>
-        
-          </TableContainer>
-        </FormAndTableContainer>
-       
-      </DashboardContainer>
-    </ContentContainer>
+              {/* ... (other form input fields) */}
+              <SubmitButton onClick={handleSubmit}>Submit</SubmitButton>
+            </FormContainer>
+            <MapColumn>
+              <SimpleMap></SimpleMap>
+            </MapColumn>
+            <ViewButtonsContainer>
+              <ViewButton
+                onClick={() => setActiveView("table")}
+                className={activeView === "table" ? "active" : ""}
+              >
+                View Table
+              </ViewButton>
+              <ViewButton
+                onClick={() => setActiveView("barChart")}
+                className={activeView === "barChart" ? "active" : ""}
+              >
+                View Bar Chart
+              </ViewButton>
+              <ViewButton
+                onClick={() => setActiveView("pieChart")}
+                className={activeView === "pieChart" ? "active" : ""}
+              >
+                View Pie Chart
+              </ViewButton>
+            </ViewButtonsContainer>
+            {activeView === "table" && (
+              <TableContainer>
+                <Table>
+                  <thead>
+                    <tr>
+                      <TableHeader>Owner Name</TableHeader>
+                      <TableHeader>Address</TableHeader>
+                      <TableHeader>Phone No.</TableHeader>
+                      <TableHeader>Number of Persons</TableHeader>
+                      <TableHeader>Last Desludging</TableHeader>
+                      <TableHeader>Wastewater Flow</TableHeader>
+                      <TableHeader>Accumulated Sludge Volume</TableHeader>
+                      <TableHeader>Upcoming Sludging Date</TableHeader>
+                      <TableHeader>Status</TableHeader>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {visibleTableData.map((row, index) => (
+                      <tr key={index}>
+                        <TableCell>{row.OwnerName}</TableCell>
+                        <TableCell>{row.Address}</TableCell>
+                        <TableCell>{row.Contact}</TableCell>
+                        <TableCell>{row.Persons}</TableCell>
+                        <TableCell>{row.LastDesludging}</TableCell>
+                        <TableCell>{row.WasteWaterFlow} liters</TableCell>
+                        <TableCell>
+                          {row.AccumulatedSludgeVolume} liters
+                        </TableCell>
+                        <TableCell>
+                          {row.UpcomingSludgingDate
+                            ? showDate(row.UpcomingSludgingDate)
+                            : "N/A"}
+                        </TableCell>
+                        <TableCell>{row.Status}</TableCell>
+                      </tr>
+                    ))}
+                  </tbody>
+                </Table>
+                {/* Pagination here */}
+              </TableContainer>
+            )}
 
-  </>
-);
-  
+            {activeView === "barChart" && (
+              <ChartContainer>
+                <h2 style={{ color: "#fff" }}>
+                  Accumulated Sludge Volume Chart
+                </h2>
+                <Bar height={600} data={barChartData} options={chartOptions} />
+              </ChartContainer>
+            )}
+
+            {activeView === "pieChart" && (
+              <ChartColumn>
+                <h2>Priority Status Distribution</h2>
+                <Pie height={650} data={pieChartData} options={chartOptions} />
+              </ChartColumn>
+            )}
+            
+          </FormAndTableContainer>
+        </DashboardContainer>
+      </ContentContainer>
+    </>
+  );
 };
 
 export default Dashboard;

@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Link, Route, Routes } from "react-router-dom";
 import FrontPage from "./components/Pages/Front";
 import LoginScreen from "./components/Pages/Login";
 import Dashboard from "./components/Pages/Dashboard";
-import MapContainer from "./components/Pages/Maps";
+import MapContainer from "./components/Pages/Map";
 
 const App = () => {
   return (
