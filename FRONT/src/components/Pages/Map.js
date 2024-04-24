@@ -31,14 +31,17 @@ class SimpleMap extends Component {
   render() {
     const position = [33.694397, 73.215898]; // Default position for the map
 
+    const {markers} = this.props
+    // console.log(data)
+
     // Update the markers array with different positions and texts
-    const markers = [
-      { position: [33.691063, 73.215981], text: 'Marker 1', color: 'red' },
-      { position: [33.692945, 73.216661], text: 'Marker 2', color: 'orange' },
-      { position: [33.693328, 73.218388], text: 'Marker 3', color: 'green' },
-      { position: [33.693437, 73.219322], text: 'Marker 4', color: 'blue' },
-      { position: [33.692745, 73.218911], text: 'Marker 5', color: 'purple' }
-    ];
+    // const markers = [
+    //   { position: [33.691063, 73.215981], text: 'Marker 1', color: 'red' },
+    //   { position: [33.692945, 73.216661], text: 'Marker 2', color: 'orange' },
+    //   { position: [33.693328, 73.218388], text: 'Marker 3', color: 'green' },
+    //   { position: [33.693437, 73.219322], text: 'Marker 4', color: 'blue' },
+    //   { position: [33.692745, 73.218911], text: 'Marker 5', color: 'purple' }
+    // ];
 
     const geoJsonCoordinates = {
       "type": "Polygon",

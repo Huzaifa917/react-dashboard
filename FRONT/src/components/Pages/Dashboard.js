@@ -272,7 +272,10 @@ const Dashboard = () => {
   const [phoneNo, setPhoneNo] = useState(""); // Changed from houseNo to phoneNo
   const [numberOfPersons, setNumberOfPersons] = useState("");
   const [lastDesludging, setLastDesludging] = useState("");
+  const [lat, setLat] = useState("");
+  const [long, setLong] = useState("");
   const [tableData, setTableData] = useState([]);
+  const [markersList, setMarkersList] = useState([]);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [activeView, setActiveView] = useState("table"); // Default to showing the table
 
@@ -466,7 +469,18 @@ const Dashboard = () => {
       AccumulatedSludgeVolume: accumulatedSludgeVolume,
       UpcomingSludgingDate: upcomingSludgingDate,
       Status: status,
+      lat: lat,
+      long: long,
     };
+
+    setMarkersList((prevDetails) => {
+      const newDetails = [...prevDetails];
+      newDetails.push({
+        position: [parseFloat(lat), parseFloat(long)],
+        text: `${ownerName}'s Upcoming Sludging Date: ${upcomingSludgingDate}`,
+      });
+      return newDetails
+    });
     const res = await fetch("http://localhost:5000/post-data", {
       method: "POST",
       headers: {
@@ -505,6 +519,15 @@ const Dashboard = () => {
     const res = await fetch("http://localhost:5000/get-data");
     const response = await res.json();
     setTableData(response.data);
+    const coordinates = [];
+    response.data.map((item) => {
+      coordinates.push({
+        position: [parseFloat(item.lat), parseFloat(item.long)],
+        text: `${item.OwnerName}'s Upcoming Sludging Date: ${item.UpcomingSludgingDate}`,
+      });
+    });
+
+    setMarkersList(coordinates);
     console.log("response: ", response);
   };
   useEffect(() => {
@@ -644,7 +667,19 @@ const Dashboard = () => {
                 onChange={(e) => setNumberOfPersons(e.target.value)}
               />
               <InputField
-                type="date"
+                type="text"
+                placeholder="Latitude"
+                value={lat}
+                onChange={(e) => setLat(e.target.value)}
+              />
+              <InputField
+                type="text"
+                placeholder="Longitude"
+                value={long}
+                onChange={(e) => setLong(e.target.value)}
+              />
+              <InputField
+                type="text"
                 placeholder="Last Desludging"
                 value={lastDesludging}
                 onChange={(e) => setLastDesludging(e.target.value)}
@@ -653,7 +688,7 @@ const Dashboard = () => {
               <SubmitButton onClick={handleSubmit}>Submit</SubmitButton>
             </FormContainer>
             <MapColumn>
-              <SimpleMap></SimpleMap>
+              <SimpleMap markers={markersList}></SimpleMap>
             </MapColumn>
             <ViewButtonsContainer>
               <ViewButton
@@ -732,7 +767,6 @@ const Dashboard = () => {
                 <Pie height={650} data={pieChartData} options={chartOptions} />
               </ChartColumn>
             )}
-            
           </FormAndTableContainer>
         </DashboardContainer>
       </ContentContainer>
