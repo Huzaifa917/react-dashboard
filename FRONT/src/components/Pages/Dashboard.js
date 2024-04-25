@@ -1,3 +1,7 @@
+
+
+
+
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
@@ -14,7 +18,7 @@ import SimpleMap from "./Map";
 const AppContainer = styled.div`
   font-family: "Arial", sans-serif;
   color: #fff;
-  background-color: #fff;
+  background-color: #000000; /* Set background color to black */
   height: 100vh;
   margin: 0;
   overflow: hidden;
@@ -64,6 +68,7 @@ const ContentContainer = styled.div`
   padding: 20px;
   color: #000;
   margin-bottom: 40px;
+  background-color: #002641;; /* Set background color to black */
 `;
 
 const DashboardContainer = styled.div`
@@ -79,37 +84,45 @@ const FormAndChartContainer = styled.div`
 `;
 
 const TotalCountsContainer = styled.div`
-  text-align: center;
+  display: flex;
+  flex-direction: column; /* Change the direction to column */
+  align-items: center;
   margin-bottom: 20px;
-  background-color: #004080; /* Set background color */
-  border: 1px solid #004080; /* Set border color */
-  border-radius: 8px; /* Add border radius for rounded corners */
-  padding: 10px 30px;
-
-  p {
-    margin: 5px 0;
-    color: #fff;
-    font-size: 16px;
-  }
 `;
 
-const DashboardTitle = styled.h1`
+const TotalCountBox = styled.div`
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 10px; /* Add margin bottom for spacing */
+  width: 80%; /* Set a width to center the box */
+  background-color: #002641;
+`;
+
+const TotalCountText = styled.p`
+  margin: 5px 0;
+  color: #fff;
   font-size: 24px;
+  font-weight: bold;
+`;
+const DashboardTitle = styled.h1`
+  font-size: 40px;
+  color: #fff; /* White text color */
 `;
 const FormContainer = styled.form`
   flex: 1 0 48%; /* Adjust the width as needed */
-
   max-width: 400px;
-  background-color: #ffffff;
+  background-color: #002641;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-  background-color: #004080;
+  border: 2px solid #ffffff; /* Set border color */
   display: flex; /* Use flexbox to center the form horizontally */
   flex-direction: column;
   align-items: center; /* Center items horizontally */
   margin-bottom: 0px;
 `;
+
 
 const InputField = styled.input`
   padding: 7px;
@@ -154,7 +167,7 @@ const Table = styled.table`
   overflow-x: auto;
   margin-top: 20px;
   color: #fff; /* Set font color to white */
-  background-color: #004080; /* Set background color to #004080 */
+  background-color: #002641; /* Set background color to #004080 */
 `;
 
 const TableHeader = styled.th`
@@ -162,7 +175,7 @@ const TableHeader = styled.th`
   padding: 10px;
   background-color: #f2f2f2;
   font-weight: bold;
-  background-color: #004080; /* Set background color to #004080 */
+  background-color: #002641; /* Set background color to #004080 */
 `;
 
 const TableCell = styled.td`
@@ -170,6 +183,9 @@ const TableCell = styled.td`
   padding: 10px;
   color: #fff; /* Set font color to white */
 `;
+
+
+
 
 const ChartWrapper = styled.div`
   display: flex;
@@ -187,12 +203,13 @@ const ChartContainer = styled.div`
   background-color: transparent;
   border-radius: 8px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-  background-color: #004080;
+  background-color: #002641;
 
   @media (max-width: 1440px) {
     height: 400px;
   }
 `;
+
 
 const ChartColumn = styled.div`
   width: 100%;
@@ -202,7 +219,7 @@ const ChartColumn = styled.div`
   padding: 10px;
   border-radius: 16px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-  background-color: #004080;
+  background-color: #002641;
 
   @media (max-width: 1440px) {
     height: 400px;
@@ -217,7 +234,7 @@ const MapColumn = styled.div`
   padding: 10px;
   border-radius: 16px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-  background-color: #004080;
+  background-color: #002641;
 
   @media (max-width: 1440px) {
     width: 60%;
@@ -272,12 +289,12 @@ const Dashboard = () => {
   const [phoneNo, setPhoneNo] = useState(""); // Changed from houseNo to phoneNo
   const [numberOfPersons, setNumberOfPersons] = useState("");
   const [lastDesludging, setLastDesludging] = useState("");
-  const [lat, setLat] = useState("");
-  const [long, setLong] = useState("");
   const [tableData, setTableData] = useState([]);
-  const [markersList, setMarkersList] = useState([]);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [activeView, setActiveView] = useState("table"); // Default to showing the table
+ const [lat, setLat] = useState("");
+ const [long, setLong] = useState("");
+const [markersList, setMarkersList] = useState([]);
 
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -469,11 +486,11 @@ const Dashboard = () => {
       AccumulatedSludgeVolume: accumulatedSludgeVolume,
       UpcomingSludgingDate: upcomingSludgingDate,
       Status: status,
-      lat: lat,
+  lat: lat,
       long: long,
-    };
 
-    setMarkersList((prevDetails) => {
+    };
+setMarkersList((prevDetails) => {
       const newDetails = [...prevDetails];
       newDetails.push({
         position: [parseFloat(lat), parseFloat(long)],
@@ -515,7 +532,7 @@ const Dashboard = () => {
     return date.toLocaleString("en-US", options);
   }
 
-  const fetchData = async () => {
+ const fetchData = async () => {
     const res = await fetch("http://localhost:5000/get-data");
     const response = await res.json();
     setTableData(response.data);
@@ -533,6 +550,7 @@ const Dashboard = () => {
   useEffect(() => {
     fetchData();
   }, []);
+
 
   const handleMenuButtonClick = () => {
     setIsSidebarOpen((prevIsSidebarOpen) => !prevIsSidebarOpen);
@@ -615,10 +633,11 @@ const Dashboard = () => {
       <Sidebar isOpen={isSidebarOpen}>
         {/* Add your sidebar menu items here */}
         <SidebarItem to="/dashboard">Dashboard</SidebarItem>
-        <SidebarItem to="/maps">Maps</SidebarItem>
-        <SidebarItem to="/">Logout</SidebarItem>
+
 
         <MapButton />
+        
+        <SidebarItem to="/">Logout</SidebarItem>
 
         {/* Add more menu items as needed */}
       </Sidebar>
@@ -633,12 +652,9 @@ const Dashboard = () => {
             RDF
           </DashboardTitle>
 
-          <TotalCountsContainer>
-            <p>Total Users: {totalUsers}</p>
-            <p>Total High Priority: {totalHighPriority}</p>
-            <p>Total Slight Priority: {totalSlightPriority}</p>
-            <p>Total Least Priority: {totalLeastPriority}</p>
-          </TotalCountsContainer>
+      
+
+
 
           <FormAndTableContainer>
             <FormContainer>
@@ -667,6 +683,12 @@ const Dashboard = () => {
                 onChange={(e) => setNumberOfPersons(e.target.value)}
               />
               <InputField
+                type="date"
+                placeholder="Last Desludging"
+                value={lastDesludging}
+                onChange={(e) => setLastDesludging(e.target.value)}
+              />
+ <InputField
                 type="text"
                 placeholder="Latitude"
                 value={lat}
@@ -678,17 +700,26 @@ const Dashboard = () => {
                 value={long}
                 onChange={(e) => setLong(e.target.value)}
               />
-              <InputField
-                type="text"
-                placeholder="Last Desludging"
-                value={lastDesludging}
-                onChange={(e) => setLastDesludging(e.target.value)}
-              />
               {/* ... (other form input fields) */}
               <SubmitButton onClick={handleSubmit}>Submit</SubmitButton>
             </FormContainer>
+            <TotalCountsContainer>
+  <TotalCountBox isFirst>
+    <TotalCountText >Total Users: {totalUsers}</TotalCountText>
+  </TotalCountBox>
+  <TotalCountBox>
+    <TotalCountText>Total High Priority: {totalHighPriority}</TotalCountText>
+  </TotalCountBox>
+  <TotalCountBox>
+    <TotalCountText>Total Slight Priority: {totalSlightPriority}</TotalCountText>
+  </TotalCountBox>
+  <TotalCountBox>
+    <TotalCountText>Total Least Priority: {totalLeastPriority}</TotalCountText>
+  </TotalCountBox>
+</TotalCountsContainer>
             <MapColumn>
-              <SimpleMap markers={markersList}></SimpleMap>
+                            <SimpleMap markers={markersList}></SimpleMap>
+
             </MapColumn>
             <ViewButtonsContainer>
               <ViewButton
@@ -749,6 +780,31 @@ const Dashboard = () => {
                   </tbody>
                 </Table>
                 {/* Pagination here */}
+                <TablePagination>
+          {currentPage > 1 && (
+            <PaginationButton onClick={() => setCurrentPage(currentPage - 1)}>
+              Previous
+            </PaginationButton>
+          )}
+          {Array.from({ length: totalPages }).map((_, index) => (
+            <PaginationButton
+              key={index}
+              onClick={() => setCurrentPage(index + 1)}
+              style={{
+                backgroundColor:
+                  currentPage === index + 1 ? "#0056b3" : "#007bff",
+              }}
+            >
+              {index + 1}
+            </PaginationButton>
+          ))}
+          {currentPage < totalPages && (
+            <PaginationButton onClick={() => setCurrentPage(currentPage + 1)}>
+              Next
+            </PaginationButton>
+          )}
+        </TablePagination>
+                
               </TableContainer>
             )}
 
@@ -762,11 +818,13 @@ const Dashboard = () => {
             )}
 
             {activeView === "pieChart" && (
-              <ChartColumn>
-                <h2>Priority Status Distribution</h2>
-                <Pie height={650} data={pieChartData} options={chartOptions} />
-              </ChartColumn>
+            <ChartColumn style={{ color: 'white' }}>
+            <h2 style={{ color: 'white' }}>Priority Status Distribution</h2>
+            <Pie height={650} data={pieChartData} options={chartOptions} />
+          </ChartColumn>
+          
             )}
+            
           </FormAndTableContainer>
         </DashboardContainer>
       </ContentContainer>
@@ -775,3 +833,9 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
+
+
+
+
+

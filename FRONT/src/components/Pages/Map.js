@@ -3,6 +3,14 @@ import { MapContainer, TileLayer, Marker, Popup, GeoJSON } from 'react-leaflet';
 import L from 'leaflet'; // Import leaflet library
 import 'leaflet/dist/leaflet.css';
 import ReactDOMServer from 'react-dom/server'; // Import ReactDOMServer from react-dom/server
+import markerIconImage from './maps-and-flags.png'; // Import the marker image
+
+const markerIcon = new L.Icon({
+  iconUrl: markerIconImage,
+  iconSize: [40, 40],
+  iconAnchor: [17, 46], //[left/right, top/bottom]
+  popupAnchor: [0, -46], //[left/right, top/bottom]
+});
 
 class SimpleMap extends Component {
   // Create a custom icon component
@@ -31,17 +39,7 @@ class SimpleMap extends Component {
   render() {
     const position = [33.694397, 73.215898]; // Default position for the map
 
-    const {markers} = this.props
-    // console.log(data)
-
-    // Update the markers array with different positions and texts
-    // const markers = [
-    //   { position: [33.691063, 73.215981], text: 'Marker 1', color: 'red' },
-    //   { position: [33.692945, 73.216661], text: 'Marker 2', color: 'orange' },
-    //   { position: [33.693328, 73.218388], text: 'Marker 3', color: 'green' },
-    //   { position: [33.693437, 73.219322], text: 'Marker 4', color: 'blue' },
-    //   { position: [33.692745, 73.218911], text: 'Marker 5', color: 'purple' }
-    // ];
+    const { markers } = this.props;
 
     const geoJsonCoordinates = {
       "type": "Polygon",
@@ -65,12 +63,11 @@ class SimpleMap extends Component {
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
         <GeoJSON data={geoJsonCoordinates} />
         {markers.map((marker, index) => (
-          <Marker key={index} position={marker.position} icon={this.customMarkerIcon} eventHandlers={{ click: () => console.log('clicked') }}>
+          <Marker key={index} position={marker.position} icon={markerIcon} eventHandlers={{ click: () => console.log('clicked') }}>
             <Popup>{marker.text}</Popup>
           </Marker>
         ))}
         {/* Add standard Leaflet markers */}
-      
       </MapContainer>
     );
   }
